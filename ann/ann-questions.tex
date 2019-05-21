@@ -2,21 +2,107 @@
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{amsmath}
+\usepackage{inconsolata}
+\usepackage{listings}
+\renewcommand{\ttdefault}{cmtt}
+\lstset{
+    commentstyle = \color{gray},
+    extendedchars=\true,
+    basicstyle=\footnotesize\ttfamily\large,
+    columns=fixed,
+    inputencoding=utf8x,
+    language = php,
+    keepspaces=true,
+    keywordstyle = \bfseries,
+    morekeywords={function, return, new}
+}
+
 \newcounter{question}
 \setcounter{question}{0}
 \begin{document}
 
 \newcommand\Que[1]{% 
-    
-    \leavevmode\par
+   \leavevmode\par
    \stepcounter{question}
    \noindent
-   \thequestion. \Large #1\par}
+   \thequestion. \Large #1\par \small answer \par \normalsize }
 
+\newcommand \Source[1]{\small source: \href{#1}#1}
+\newcommand \Img[1]{\makebox[\textwidth]{\includegraphics[width=0.6\paperwidth]{#1}}}
+
+\section{GNU R}
+
+\Que{Define a vector x of three real numbers 1,2,3 in R}
+
+\begin{lstlisting}
+> x = c(1, 2, 3)
+\end{lstlisting} 
+
+\Que{Define a list x of values "a" and "b" in R}
+
+\begin{lstlisting}
+> x = list("a", "b")
+\end{lstlisting}
+
+\Que{List data types in R}
+\begin{itemize}
+    \item vector
+    \item list
+    \item environment
+\end{itemize}
+
+\Que{Given two lists x and y produce list containing all values in x and y preserving their order}
+\begin{lstlisting}
+> list(x, y)
+\end{lstlisting}
+
+\Que{Given vectors $x=(1, 2 ,3)$ and $y=(2, 4, 6)$ calculate linear regression $$y \propto \beta x$$ and print $\beta$}
+\begin{lstlisting}
+> x <- c(1, 2, 3)
+> y <- c(2, 4, 6)
+> r <- lm( y~x )
+> r$coefficients[2]
+\end{lstlisting}
+
+\Que{What is JOIN operation between two data frames?}
+    
+Given sets of tuples
+     $A=(a_l, k_l)$ 
+    and 
+     $B=(b_r, k_r)$  with key $k$
+    JOIN operation produces set of tuples 
+    $(a_j, b_j, k_j)$ so that for each $j$ there exist some $l_j$ and $r_j$ such that $k_{l_j}=k_{r_j}$
+
+
+\Que{How one could join two data frames in R by common column "key"?}
+\begin{lstlisting}
+> library(dplyr)
+> d1 <- tibble(a=c(1,2),key=c("one","two"))
+> d2 <- tibble(b=c(10,20),key=c("one","two"))
+> inner_join(d1,d2,by="key")
+A tibble: 2 x 3
+      a key       b
+  <dbl> <chr> <dbl>
+1     1 one      10
+2     2 two      20
+\end{lstlisting}
+
+
+\section{General Machine learning}
+\Que{What dimensity reduction methods you have heard about?}
+\begin{itemize}
+    \item Principal Components analysis (PCA)
+    \item Linear discriminant analysis (LDA)
+\end{itemize}
+
+\Que{What is Principal Components Analysis}
+TODO
+\small Source: \href{https://medium.com/@jonathan_hui/machine-learning-singular-value-decomposition-svd-principal-component-analysis-pca-1d45e885e491}https://medium.com/@jonathan\_hui/machine-learning-singular-value-decomposition-svd-principal-component-analysis-pca-1d45e885e491
+
+\section{Neural networks}
 \Que{What is neuron model}
-\makebox[\textwidth]{\includegraphics[width=0.6\paperwidth]{neuron_model.jpeg}}
-
-\small source: \href{https://www.cs.utoronto.ca/~fidler/teaching/2015/slides/CSC2523/CNN-tutorial.pdf}{https://www.cs.utoronto.ca/~fidler/teaching/2015/slides/CSC2523/CNN-tutorial.pdf}
+\Img{neuron_model.jpeg}
+\Source{https://www.cs.utoronto.ca/~fidler/teaching/2015/slides/CSC2523/CNN-tutorial.pdf}
 
 \Que{Give examples of activation functions}
 
@@ -27,23 +113,32 @@
     \item ReLU $$f(x)=\max(0,x)$$
     \item Maxout $$f(x) = \max(w_0x + b_0, w_1x + b_1)$$
 \end{itemize}
-\small source: \href{https://www.cs.utoronto.ca/~fidler/teaching/2015/slides/CSC2523/CNN-tutorial.pdf}{https://www.cs.utoronto.ca/~fidler/teaching/2015/slides/CSC2523/CNN-tutorial.pdf}
+\Source{https://www.cs.utoronto.ca/~fidler/teaching/2015/slides/CSC2523/CNN-tutorial.pdf}
 
 \Que{What are the strong and weak sides of sigmoid activation function}
 
-TODO add solution from link below
+Strong:
+\begin{itemize}
+    \item Captures non-linearity in the data
+    \item Differentiable, thus could be used in gradient descent and backpropagation methods for calculating weights
+\end{itemize}
 
-\small source: \href{https://towardsdatascience.com/understanding-neural-networks-from-neuron-to-rnn-cnn-and-deep-learning-cd88e90e0a90}{https://towardsdatascience.com/understanding-neural-networks-from-neuron-to-rnn-cnn-and-deep-learning-cd88e90e0a90}
+Weak:
+\begin{itemize}
+    \item Problem of vanishing gradients when training network
+\end{itemize}
+
+\Source{https://towardsdatascience.com/understanding-neural-networks-from-neuron-to-rnn-cnn-and-deep-learning-cd88e90e0a90}
 
 
 \Que{For image and speech recognition, what kind of neural networks are better used and why?}
+
 \begin{itemize}
     \item CNN (Convolution Neural Networks) are used for image recognition.
     \item RNN (Recurring Neural Networks) are used for speech recognition
 \end{itemize}
 
-\small source: \href{https://www.cs.utoronto.ca/~fidler/teaching/2015/slides/CSC2523/CNN-tutorial.pdf}{https://www.cs.utoronto.ca/~fidler/teaching/2015/slides/CSC2523/CNN-tutorial.pdf}
-
+\Source{https://www.cs.utoronto.ca/~fidler/teaching/2015/slides/CSC2523/CNN-tutorial.pdf}
 
 
 \end{document}
