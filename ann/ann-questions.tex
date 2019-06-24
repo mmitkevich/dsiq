@@ -32,28 +32,25 @@
 
 \section{GNU R}
 
-\Que{Define a vector x of three real numbers 1,2,3 in R}
-
-\begin{lstlisting}
-> x = c(1, 2, 3)
-\end{lstlisting} 
-
-\Que{Define a list x of values "a" and "b" in R}
-
-\begin{lstlisting}
-> x = list("a", "b")
-\end{lstlisting}
-
-\Que{List data types in R}
+\Que{What data types does R have}
 \begin{itemize}
     \item vector
     \item list
     \item environment
 \end{itemize}
+Note: there are alsow classes in R, for example data.frame
 
-\Que{Given two lists x and y produce list containing all values in x and y preserving their order}
+\Que{What R libraries for dataframe processign do you know}
+\begin{itemize}
+    \item{dplyr}
+    \item{datatable}
+    \item{ggplot2}
+    \item {tidyr}
+\end{itemize}
+
+\Que{Given two lists x=list(1,2) and y=list(3,4) produce list containing all values in x and y preserving their order}
 \begin{lstlisting}
-> c(x, y)
+> append(list(x), list(y))
 \end{lstlisting}
 
 \Que{Given vectors $x=(1, 2 ,3)$ and $y=(2, 4, 6)$ calculate linear regression $$y \propto \beta x$$ and print $\beta$}
@@ -64,14 +61,14 @@
 > r$coefficients[2]
 \end{lstlisting}
 
-\Que{What is JOIN operation between two data frames?}
+\Que{What is INNER JOIN operation between two data frames?}
     
 Given sets of tuples
      $A=(a_l, k_l)$ 
     and 
      $B=(b_r, k_r)$  with key $k$
     JOIN operation produces set of tuples 
-    $(a_j, b_j, k_j)$ so that for each $j$ there exist some $l_j$ and $r_j$ such that $k_{l_j}=k_{r_j}$
+    $(a_j, b_j, k_j)$ so that for each $j$ there exist some indexes $l_j$ and $r_j$ such that $k_{l_j}=k_{r_j}$
 
 
 \Que{How one could join two data frames in R by common column "key"?}
@@ -87,6 +84,22 @@ A tibble: 2 x 3
 2     2 two      20
 \end{lstlisting}
 
+\section{Python}
+\Que{What data types are there in Python}
+\begin{itemize}
+    \item Int
+    \item Float
+    \item dict
+    \item list
+    \item object
+    \item np.ndarray
+\end{itemize}
+
+\Que{What vector/DataFrame libraries are there in python}
+\begin{itemize}
+    \item{pandas}
+    \item{numpy}
+\end{itemize}
 
 \section{General Machine learning}
 \Que{What dimensity reduction methods you have heard about?}
@@ -95,11 +108,92 @@ A tibble: 2 x 3
     \item Linear discriminant analysis (LDA)
 \end{itemize}
 
+\Que{What is list comprehension? Calculate squares of list 1,2,3}
+\begin{lstlisting}
+    [x*x for x in [1,2,3]]
+\end{lstlisting}
+
+\Que{Given dataframe STOCKS of stock data with three columns SYMBOL, PRICE, VOLUME how one could filter stocks with price less than \$100}
+\begin{lstlisting}
+    STOCKS[STOCKS.price<100]
+\end{lstlisting}
+
+\Que{How }
+\begin{lstlisting}
+    STOCKS[STOCKS.price<100]
+\end{lstlisting}
+
 \Que{What is Principal Components Analysis}
 TODO
 \small Source: \href{https://medium.com/@jonathan_hui/machine-learning-singular-value-decomposition-svd-principal-component-analysis-pca-1d45e885e491}https://medium.com/@jonathan\_hui/machine-learning-singular-value-decomposition-svd-principal-component-analysis-pca-1d45e885e491
 
-\section{Neural networks}
+\section{Math}
+
+\subsection{Linear algebra}
+
+\Que{Which matrix corresponds to rotation on 90 degrees anti-clockwise}
+\[
+    \begin{matrix} 
+        cos(\phi) & -sin(\phi) \\
+        sin(\phi) & cos(\phi)
+    \end{matrix}    
+\]
+For 90 degrees 
+\[
+    \begin{matrix} 
+        0 & -1 \\
+        1 & 0
+    \end{matrix}    
+\]
+
+\Que{What is eigenvector and eigenvalue}
+In essence, an eigenvector v of a linear transformation $A$
+is a non-zero vector that, when T is applied to it, does not change direction. 
+Applying T to the eigenvector only scales the eigenvector by the scalar value $\lambda$, 
+called an eigenvalue. This condition can be written as the equation
+
+\[ \mathbf{A}x=\lambda x\]
+
+\subsection{Probability}
+
+\Que{What is normal distribution? Why is it important?}
+\Source{wikipedia}
+
+\[
+    \phi (x)=\frac {1}{\sqrt {2\pi }} e^{-\frac {1}{2} x^2}
+\]
+
+\Que{What is the law of big numbers and central limit theorem?}
+Law of big numbers:\\
+If random variables $X_i$ are independent identically distributed with mean $\mu$ and finite variance $\sigma^2$, then 
+their sample mean
+
+\[ S_n=\big({\frac{1}{n}}\sum_{i=1}^{n}X_{i}\big) \] 
+
+coverges by probability and almost surely to their mean $\mu$ 
+
+Central limit theorem (Levy): \\
+\[ Z = \sqrt{n} (S_n-\mu) \] converges in distribution to noraml distributed with mean $0$ and variance $\sigma^2$
+
+\subsection{Dual problem, Convex optimization}
+TODO
+\section{Machine learning}
+
+\Que{What is linear regression?}
+
+\Que{Name some clusterization (classification) algorithms}
+\begin{itemize}
+\item k-means
+\item suport vector machine (SVM)
+\end{itemize}
+
+\Que{What is overfitting problem?}
+TODO
+
+\Que{What is crossvalidation?}
+TODO
+
+\section{Deep learning. Neural networks}
 \Que{What is neuron model}
 \Img{neuron_model.jpeg}
 \Source{https://www.cs.utoronto.ca/~fidler/teaching/2015/slides/CSC2523/CNN-tutorial.pdf}
